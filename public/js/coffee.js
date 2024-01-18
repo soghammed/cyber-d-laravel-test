@@ -853,7 +853,7 @@ var __webpack_exports__ = {};
   \********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "calculate_selling_price": () => (/* binding */ calculate_selling_price)
+/* harmony export */   calculate_selling_price: () => (/* binding */ calculate_selling_price)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -906,6 +906,10 @@ var get_coffee_sales = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+/**
+ * Record Sale Action
+ */
+
 
 var record_sale = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -1028,8 +1032,7 @@ var calculate_selling_price = function calculate_selling_price(quantity, unit_co
   return selling_price.toFixed(2);
 };
 
- // module.exports = {
-// }
+
 })();
 
 /******/ })()

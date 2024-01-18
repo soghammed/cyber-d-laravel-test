@@ -28,6 +28,9 @@ const get_coffee_sales = async () => {
         })
 }
 
+/**
+ * Record Sale Action
+ */
 const record_sale = async () => {
     let quantity = document.querySelector("#quantity").value;
     let unit_cost = document.querySelector("#unit-cost").value;
@@ -41,7 +44,7 @@ const record_sale = async () => {
         return false;
     }
 
-    //api call to record sale 
+    //ajax call to record sale 
     await axios.post("/coffee-sales/store", {
         quantity: parseInt(quantity),
         unit_cost:  parseFloat(unit_cost),
@@ -123,5 +126,3 @@ const calculate_selling_price = (quantity, unit_cost, product, shipping_cost) =>
 export {
     calculate_selling_price
 };
-// module.exports = {
-// }
