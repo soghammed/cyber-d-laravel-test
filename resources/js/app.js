@@ -1,5 +1,5 @@
 require('./bootstrap');
-require('./coffee')
+require('./coffee.js')
 
 import Alpine from 'alpinejs';
 

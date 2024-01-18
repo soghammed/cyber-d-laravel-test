@@ -27,4 +27,9 @@ Route::get('/shipping-partners', function () {
     return view('shipping_partners');
 })->middleware(['auth'])->name('shipping.partners');
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('coffee-sales', 'CoffeeSaleController@index');
+    Route::post('coffee-sales/store', 'CoffeeSaleController@store');
+});
+
 require __DIR__.'/auth.php';

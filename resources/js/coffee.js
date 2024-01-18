@@ -17,7 +17,7 @@ window.onload = () => {
 }
 
 const get_coffee_sales = async () => {
-    await axios.get("/api/coffee-sales")
+    await axios.get("/coffee-sales")
         .then( ({data}) => {
             data.sales.map( sale => {
                 insert_new_sale_row(sale)
@@ -42,7 +42,7 @@ const record_sale = async () => {
     }
 
     //api call to record sale 
-    await axios.post("/api/coffee-sales/store", {
+    await axios.post("/coffee-sales/store", {
         quantity: parseInt(quantity),
         unit_cost:  parseFloat(unit_cost),
         selling_price: parseFloat(selling_price),
@@ -120,6 +120,8 @@ const calculate_selling_price = (quantity, unit_cost, product, shipping_cost) =>
     return selling_price.toFixed(2);
 }
 
-module.exports = {
+export {
     calculate_selling_price
-}
+};
+// module.exports = {
+// }

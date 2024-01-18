@@ -5085,7 +5085,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./coffee */ "./resources/js/coffee.js");
+__webpack_require__(/*! ./coffee.js */ "./resources/js/coffee.js");
 
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
@@ -5138,13 +5138,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!********************************!*\
   !*** ./resources/js/coffee.js ***!
   \********************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "calculate_selling_price": () => (/* binding */ calculate_selling_price)
+/* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* module decorator */ module = __webpack_require__.hmd(module);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5173,7 +5175,7 @@ var get_coffee_sales = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return axios.get("/api/coffee-sales").then(function (_ref2) {
+            return axios.get("/coffee-sales").then(function (_ref2) {
               var data = _ref2.data;
               data.sales.map(function (sale) {
                 insert_new_sale_row(sale);
@@ -5218,7 +5220,7 @@ var record_sale = /*#__PURE__*/function () {
 
           case 8:
             _context2.next = 10;
-            return axios.post("/api/coffee-sales/store", {
+            return axios.post("/coffee-sales/store", {
               quantity: parseInt(quantity),
               unit_cost: parseFloat(unit_cost),
               selling_price: parseFloat(selling_price),
@@ -5316,9 +5318,8 @@ var calculate_selling_price = function calculate_selling_price(quantity, unit_co
   return selling_price.toFixed(2);
 };
 
-module.exports = {
-  calculate_selling_price: calculate_selling_price
-};
+ // module.exports = {
+// }
 
 /***/ }),
 
@@ -56203,21 +56204,6 @@ try {
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/harmony module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.hmd = (module) => {
-/******/ 			module = Object.create(module);
-/******/ 			if (!module.children) module.children = [];
-/******/ 			Object.defineProperty(module, 'exports', {
-/******/ 				enumerable: true,
-/******/ 				set: () => {
-/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
-/******/ 				}
-/******/ 			});
-/******/ 			return module;
-/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
