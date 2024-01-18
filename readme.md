@@ -13,7 +13,7 @@ Frontend:
 - npm run test
 
 Backend: 
-- backend: php artisan test
+- php artisan test
 
 --------------------------------------------------
 
