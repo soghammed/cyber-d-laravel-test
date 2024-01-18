@@ -36,12 +36,13 @@ class CoffeeSaleController extends Controller
         $request->validate([
             'quantity' => 'required|numeric',
             'unit_cost' => 'required|numeric',
-            'selling_price' => 'required|numeric'
+            'selling_price' => 'required|numeric',
+            'product' => 'required'
         ]);
 
         $before = $request->all();
         $data = $request->all();
-        $data['quantity'] = (int) $data['quantity'];
+        $data['quantity'] = $data['quantity'];
         $data['unit_cost'] *= 100;
         $data['selling_price'] *= 100;
 

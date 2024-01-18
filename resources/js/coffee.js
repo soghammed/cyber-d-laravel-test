@@ -7,6 +7,9 @@ window.onload = () => {
     $('#unit-cost,#quantity').on('keyup',  () => {
         selling_price_calculator()
     })
+    $('#product').on('change', () => {
+        selling_price_calculator()
+    })
 
     $('#record-sale').on('click', () => {
         recordSale();
@@ -29,9 +32,11 @@ const recordSale = async () => {
     let quantity = document.querySelector("#quantity").value;
     let unit_cost = document.querySelector("#unit-cost").value;
     let selling_price = document.querySelector("#selling-price-value").value;
-
-    //alert and ignore if either are missing
-    if(!quantity || !unit_cost){
+    let product = document.querySelector('#product');
+    product = product ? product.options[product.selectedIndex].value : null;
+    console.log('product', product)
+    //alert and ignore if any are missing
+    if(!quantity || !unit_cost || !selling_price){
         alert("Please check fields and try again...")
         return false;
     }
@@ -40,6 +45,7 @@ const recordSale = async () => {
         quantity: parseInt(quantity),
         unit_cost:  parseFloat(unit_cost),
         selling_price: parseFloat(selling_price),
+        product: product
     })
     .then( ({data}) => {
         if(data.status == 200){
@@ -57,9 +63,11 @@ const recordSale = async () => {
 
 const insertNewSaleRow = async (sale) => {
     let newRowData = `<tr>
+        <td class='capitalize'>${sale.product} Coffee</td>
         <td>${sale.quantity}</td>
         <td>£${(sale.unit_cost / 100).toFixed(2)}</td>
         <td>£${(sale.selling_price / 100).toFixed(2)}</td>
+        <td>${moment(sale.created_at).format('MMM Do YYYY')}</td>
     </tr>`
     let tbody = $('#previous-sales').find('tbody').append(newRowData);
 }
@@ -70,6 +78,7 @@ const selling_price_calculator = function()
     let profit_margin;
     let shipping_cost = 10;
     let product = document.querySelector('#product');
+    product = product ? product.options[product.selectedIndex].value : null;
     let quantity = parseInt(document.querySelector('#quantity').value);
     let unit_cost = parseFloat(document.querySelector('#unit-cost').value);
     let cost = parseInt(quantity) * parseFloat(unit_cost);

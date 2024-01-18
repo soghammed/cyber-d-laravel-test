@@ -8,7 +8,14 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 sm:flex bg-white border-b border-gray-200">
+                <div class="p-6 lg:flex bg-white border-b border-gray-200">
+                    <div class="mr-3">
+                        <label for="product" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Product') }}</label>
+                        <select id="product" class="rounded">
+                            <option value="gold">Gold Coffee</option>
+                            <option value="arabic">Arabic Coffee</option>
+                        </select>
+                    </div>
                     <div class="mr-3">
                         <label for="quantity" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Quantity') }}</label>
                         <input type="number" name="quantity" class="rounded" id="quantity"/>
@@ -34,9 +41,11 @@
 
                     <table class="w-3/5 max-w-3/5 border-collapse border-2 border-gray-500 table-auto" id="previous-sales">
                         <thead>
+                            <th class="bg-gray-300 border-r-2 border-gray-500 text-left pl-2">{{ __('Product') }}</th>
                             <th class="bg-gray-300 border-r-2 border-gray-500 text-left pl-2">{{ __('Quantity') }}</th>
                             <th class="bg-gray-300 border-r-2 border-gray-500 text-left pl-2">{{ __('Unit Cost') }}</th>
                             <th class="bg-gray-300 border-r-2 border-gray-500 text-left pl-2">{{ __('Selling Price') }}</th>
+                            <th class="bg-gray-300 border-r-2 border-gray-500 text-left pl-2">{{ __('Sold at') }}</th>
                         </thead>
                         <tbody>
                         </tbody>

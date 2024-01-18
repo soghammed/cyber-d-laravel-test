@@ -9,3 +9,6 @@ tr:nth-child(odd) {
 td{
     @apply border-r-2 border-gray-500 py-2
 }
+.capitalize{
+    text-transform: capitalize;
+}

@@ -10,6 +10,7 @@ class CoffeeSale extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product',
         'quantity',
         'unit_cost',
         'selling_price'

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         CoffeeSale::create([
+            'product' => 'gold',
             'quantity' => 1,
             'unit_cost' => 1000,
             'selling_price' => 2333
