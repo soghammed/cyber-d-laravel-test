@@ -858,15 +858,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 window.onload = function () {
   //get previous sales;
-  get_coffee_sales(); //calculate selling price on quantity or unit cost change;
+  get_coffee_sales();
 
+  //calculate selling price on quantity or unit cost change;
   $('#unit-cost,#quantity').on('keyup', function () {
     update_selling_price();
   });
@@ -877,7 +875,6 @@ window.onload = function () {
     record_sale();
   });
 };
-
 var get_coffee_sales = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -893,7 +890,6 @@ var get_coffee_sales = /*#__PURE__*/function () {
             })["catch"](function (err) {
               console.log(err);
             });
-
           case 2:
           case "end":
             return _context.stop();
@@ -901,16 +897,14 @@ var get_coffee_sales = /*#__PURE__*/function () {
       }
     }, _callee);
   }));
-
   return function get_coffee_sales() {
     return _ref.apply(this, arguments);
   };
 }();
+
 /**
  * Record Sale Action
  */
-
-
 var record_sale = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
     var quantity, unit_cost, selling_price, product;
@@ -922,16 +916,15 @@ var record_sale = /*#__PURE__*/function () {
             unit_cost = document.querySelector("#unit-cost").value;
             selling_price = document.querySelector("#selling-price-value").value;
             product = document.querySelector('#product');
-            product = product ? product.options[product.selectedIndex].value : null; //alert and ignore if any are missing
+            product = product ? product.options[product.selectedIndex].value : null;
 
+            //alert and ignore if any are missing
             if (!(!quantity || !unit_cost || !selling_price)) {
               _context2.next = 8;
               break;
             }
-
             alert("Please check fields and try again...");
             return _context2.abrupt("return", false);
-
           case 8:
             _context2.next = 10;
             return axios.post("/coffee-sales/store", {
@@ -941,7 +934,6 @@ var record_sale = /*#__PURE__*/function () {
               product: product
             }).then(function (_ref4) {
               var data = _ref4.data;
-
               if (data.status == 200) {
                 //add table row with sale data;
                 insert_new_sale_row(data.sale);
@@ -954,7 +946,6 @@ var record_sale = /*#__PURE__*/function () {
               });
               alert(errorsText);
             });
-
           case 10:
           case "end":
             return _context2.stop();
@@ -962,12 +953,10 @@ var record_sale = /*#__PURE__*/function () {
       }
     }, _callee2);
   }));
-
   return function record_sale() {
     return _ref3.apply(this, arguments);
   };
 }();
-
 var insert_new_sale_row = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(sale) {
     var newRowData, tbody;
@@ -976,8 +965,7 @@ var insert_new_sale_row = /*#__PURE__*/function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             newRowData = "<tr>\n        <td class='capitalize'>".concat(sale.product, " Coffee</td>\n        <td>").concat(sale.quantity, "</td>\n        <td>\xA3").concat((sale.unit_cost / 100).toFixed(2), "</td>\n        <td>\xA3").concat((sale.selling_price / 100).toFixed(2), "</td>\n        <td>").concat(moment(sale.created_at).format('MMM Do YYYY'), "</td>\n    </tr>");
-            tbody = $('#previous-sales').find('tbody').append(newRowData);
-
+            tbody = $('#previous-sales').find('tbody').prepend(newRowData);
           case 2:
           case "end":
             return _context3.stop();
@@ -985,53 +973,51 @@ var insert_new_sale_row = /*#__PURE__*/function () {
       }
     }, _callee3);
   }));
-
   return function insert_new_sale_row(_x) {
     return _ref6.apply(this, arguments);
   };
 }();
-
 var update_selling_price = function update_selling_price() {
   //init variables using input fields or defaults;
   var shipping_cost = 10;
   var product = document.querySelector('#product');
   product = product ? product.options[product.selectedIndex].value : null;
   var quantity = parseInt(document.querySelector('#quantity').value);
-  var unit_cost = parseFloat(document.querySelector('#unit-cost').value); //calc selling_price;
+  var unit_cost = parseFloat(document.querySelector('#unit-cost').value);
 
-  var selling_price = calculate_selling_price(quantity, unit_cost, product, shipping_cost); //ignore if no selling_price calculated;
+  //calc selling_price;
+  var selling_price = calculate_selling_price(quantity, unit_cost, product, shipping_cost);
 
-  if (!selling_price) return false; //update dom with selling price;
+  //ignore if no selling_price calculated;
+  if (!selling_price) return false;
 
+  //update dom with selling price;
   document.querySelector('#selling-price').innerHTML = "\xA3".concat(selling_price);
   document.querySelector('#selling-price-value').value = selling_price;
 };
-
 var calculate_selling_price = function calculate_selling_price(quantity, unit_cost, product, shipping_cost) {
-  var profit_margin; //calc cost;
+  var profit_margin;
+  //calc cost;
+  var cost = parseInt(quantity) * parseFloat(unit_cost);
 
-  var cost = parseInt(quantity) * parseFloat(unit_cost); //set profit_margin based on product
-
+  //set profit_margin based on product
   switch (product) {
     case 'arabic':
       profit_margin = 0.15;
       break;
-
     case 'gold':
       profit_margin = 0.25;
       break;
-
     default:
       profit_margin = 0.25;
-  } //calc selling price;
+  }
+  //calc selling price;
+  var selling_price = cost / (1 - profit_margin) + shipping_cost;
 
-
-  var selling_price = cost / (1 - profit_margin) + shipping_cost; //ignore if not a number;
-
+  //ignore if not a number;
   if (isNaN(selling_price)) return false;
   return selling_price.toFixed(2);
 };
-
 
 })();
 

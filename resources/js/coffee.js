@@ -74,7 +74,7 @@ const insert_new_sale_row = async (sale) => {
         <td>£${(sale.selling_price / 100).toFixed(2)}</td>
         <td>${moment(sale.created_at).format('MMM Do YYYY')}</td>
     </tr>`
-    let tbody = $('#previous-sales').find('tbody').append(newRowData);
+    let tbody = $('#previous-sales').find('tbody').prepend(newRowData);
 }
 
 const update_selling_price = () =>  {
