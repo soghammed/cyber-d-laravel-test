@@ -18,7 +18,7 @@ class CoffeeSalesTest extends TestCase
     public function test_get_sales_route(): void
     {
         \Artisan::call('db:seed');
-        $user = User::where('id', 1)->first();
+        $user = User::findOrFail(1);
         $response = $this->actingAs($user)
                          ->get('/coffee-sales');
 
@@ -34,7 +34,7 @@ class CoffeeSalesTest extends TestCase
     public function test_post_sale_route(): void
     {
         \Artisan::call('db:seed');
-        $user = User::where('id', 1)->first();
+        $user = User::findOrFail(1);
         $response = $this->actingAs($user)
                          ->post('/coffee-sales/store', [
                             'quantity' => '1',

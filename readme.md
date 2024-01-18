@@ -1,3 +1,18 @@
+## Instructions
+- composer install 
+- cp .env.example .env
+- php artisan key:generate
+- npm install && npm run dev
+- touch database/database.sqlite && touch database/database.test.sqlite
+- php artisan migrate:fresh --seed
+- php artisan serve
+
+## Tests
+- frontend: npm run test
+- backend: php artisan test
+
+--------------------------------------------------
+
 # Cyber-Duck Laravel task
 
 Documentation should be kept in the `docs` folder
