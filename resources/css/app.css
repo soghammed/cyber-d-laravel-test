@@ -1,3 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+tr:nth-child(odd) {
+    background-color: rgba(0,0,0,0.05);
+}
+
+td{
+    @apply border-r-2 border-gray-500 py-2
+}

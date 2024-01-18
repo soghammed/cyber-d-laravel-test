@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\CoffeeSale;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,12 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Sales Agent',
             'email' => 'sales@coffee.shop',
+        ]);
+
+        CoffeeSale::create([
+            'quantity' => 1,
+            'unit_cost' => 1000,
+            'selling_price' => 2333
         ]);
     }
 }
