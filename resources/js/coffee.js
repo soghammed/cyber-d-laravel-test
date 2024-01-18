@@ -68,7 +68,7 @@ const record_sale = async () => {
 
 const insert_new_sale_row = async (sale) => {
     let newRowData = `<tr>
-        <td class='capitalize'>${sale.product} Coffee</td>
+        <td class='capitalize'>${sale.product} ☕️</td>
         <td>${sale.quantity}</td>
         <td>£${(sale.unit_cost / 100).toFixed(2)}</td>
         <td>£${(sale.selling_price / 100).toFixed(2)}</td>

@@ -964,7 +964,7 @@ var insert_new_sale_row = /*#__PURE__*/function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            newRowData = "<tr>\n        <td class='capitalize'>".concat(sale.product, " Coffee</td>\n        <td>").concat(sale.quantity, "</td>\n        <td>\xA3").concat((sale.unit_cost / 100).toFixed(2), "</td>\n        <td>\xA3").concat((sale.selling_price / 100).toFixed(2), "</td>\n        <td>").concat(moment(sale.created_at).format('MMM Do YYYY'), "</td>\n    </tr>");
+            newRowData = "<tr>\n        <td class='capitalize'>".concat(sale.product, " \u2615\uFE0F</td>\n        <td>").concat(sale.quantity, "</td>\n        <td>\xA3").concat((sale.unit_cost / 100).toFixed(2), "</td>\n        <td>\xA3").concat((sale.selling_price / 100).toFixed(2), "</td>\n        <td>").concat(moment(sale.created_at).format('MMM Do YYYY'), "</td>\n    </tr>");
             tbody = $('#previous-sales').find('tbody').prepend(newRowData);
           case 2:
           case "end":

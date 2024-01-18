@@ -16,8 +16,8 @@
                     <div class="mr-3">
                         <label for="product" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Product') }}</label>
                         <select id="product" class="rounded">
-                            <option value="gold">Gold Coffee</option>
-                            <option value="arabic">Arabic Coffee</option>
+                            <option value="gold">Gold ☕️</option>
+                            <option value="arabic">Arabic ☕️</option>
                         </select>
                     </div>
                     <div class="mr-3">
