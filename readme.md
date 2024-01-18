@@ -9,7 +9,7 @@
 
 ## Tests
 
-Front end:
+Frontend:
 - npm run test
 
 Backend: 
