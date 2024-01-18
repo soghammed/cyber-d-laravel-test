@@ -12,7 +12,9 @@ class CoffeeSaleController extends Controller
      */
     public function index(Request $request, CoffeeSale $coffeeSale)
     {   
-        $coffeeSales = $coffeeSale->all();
+        $coffeeSales = $coffeeSale
+                        ->orderBy('created_at', 'desc')
+                        ->get();
 
         return response()->json([
             'sales' => $coffeeSales,
