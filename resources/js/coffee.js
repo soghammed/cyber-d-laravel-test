@@ -1,26 +1,26 @@
 window.onload = () => {
 
     //get previous sales;
-    getCoffeeSales();
+    get_coffee_sales();
 
     //calculate selling price on quantity or unit cost change;
     $('#unit-cost,#quantity').on('keyup',  () => {
-        selling_price_calculator()
+        update_selling_price()
     })
     $('#product').on('change', () => {
-        selling_price_calculator()
+        update_selling_price()
     })
 
     $('#record-sale').on('click', () => {
-        recordSale();
+        record_sale();
     })
 }
 
-const getCoffeeSales = async function(){
+const get_coffee_sales = async () => {
     await axios.get("/api/coffee-sales")
         .then( ({data}) => {
             data.sales.map( sale => {
-                insertNewSaleRow(sale)
+                insert_new_sale_row(sale)
             })
         })
         .catch( err => {
@@ -28,19 +28,20 @@ const getCoffeeSales = async function(){
         })
 }
 
-const recordSale = async () => {
+const record_sale = async () => {
     let quantity = document.querySelector("#quantity").value;
     let unit_cost = document.querySelector("#unit-cost").value;
     let selling_price = document.querySelector("#selling-price-value").value;
     let product = document.querySelector('#product');
     product = product ? product.options[product.selectedIndex].value : null;
-    console.log('product', product)
+
     //alert and ignore if any are missing
     if(!quantity || !unit_cost || !selling_price){
         alert("Please check fields and try again...")
         return false;
     }
 
+    //api call to record sale 
     await axios.post("/api/coffee-sales/store", {
         quantity: parseInt(quantity),
         unit_cost:  parseFloat(unit_cost),
@@ -49,7 +50,8 @@ const recordSale = async () => {
     })
     .then( ({data}) => {
         if(data.status == 200){
-            insertNewSaleRow(data.sale)
+            //add table row with sale data;
+            insert_new_sale_row(data.sale)
         }
     })
     .catch( ({ response }) => {
@@ -61,7 +63,7 @@ const recordSale = async () => {
     })
 }
 
-const insertNewSaleRow = async (sale) => {
+const insert_new_sale_row = async (sale) => {
     let newRowData = `<tr>
         <td class='capitalize'>${sale.product} Coffee</td>
         <td>${sale.quantity}</td>
@@ -72,17 +74,30 @@ const insertNewSaleRow = async (sale) => {
     let tbody = $('#previous-sales').find('tbody').append(newRowData);
 }
 
-const selling_price_calculator = function() 
-{
+const update_selling_price = () =>  {
     //init variables using input fields or defaults;
-    let profit_margin;
     let shipping_cost = 10;
     let product = document.querySelector('#product');
     product = product ? product.options[product.selectedIndex].value : null;
     let quantity = parseInt(document.querySelector('#quantity').value);
     let unit_cost = parseFloat(document.querySelector('#unit-cost').value);
-    let cost = parseInt(quantity) * parseFloat(unit_cost);
 
+    //calc selling_price;
+    let selling_price = calculate_selling_price(quantity, unit_cost, product, shipping_cost)
+
+    //ignore if no selling_price calculated;
+    if(!selling_price) return false;
+
+    //update dom with selling price;
+    document.querySelector('#selling-price').innerHTML = `£${selling_price}`;
+    document.querySelector('#selling-price-value').value = selling_price;
+}
+
+const calculate_selling_price = (quantity, unit_cost, product, shipping_cost) => {
+    let profit_margin;
+    //calc cost;
+    let cost = parseInt(quantity) * parseFloat(unit_cost);
+    
     //set profit_margin based on product
     switch(product){
         case 'arabic':
@@ -96,14 +111,15 @@ const selling_price_calculator = function()
         default:
             profit_margin = 0.25;
     }
-
-    //calc selling_price;
+    //calc selling price;
     let selling_price = ( cost / ( 1 - profit_margin ) ) + shipping_cost;
 
-    //ignore selling_price if not a number;
+    //ignore if not a number;
     if(isNaN(selling_price)) return false;
+    
+    return selling_price.toFixed(2);
+}
 
-    //update dom with selling price;
-    document.querySelector('#selling-price').innerHTML = `£${selling_price.toFixed(2)}`;
-    document.querySelector('#selling-price-value').value = selling_price.toFixed(2);
+module.exports = {
+    calculate_selling_price
 }

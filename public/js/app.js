@@ -5138,12 +5138,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!********************************!*\
   !*** ./resources/js/coffee.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* module decorator */ module = __webpack_require__.hmd(module);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5152,20 +5153,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 window.onload = function () {
   //get previous sales;
-  getCoffeeSales(); //calculate selling price on quantity or unit cost change;
+  get_coffee_sales(); //calculate selling price on quantity or unit cost change;
 
   $('#unit-cost,#quantity').on('keyup', function () {
-    selling_price_calculator();
+    update_selling_price();
   });
   $('#product').on('change', function () {
-    selling_price_calculator();
+    update_selling_price();
   });
   $('#record-sale').on('click', function () {
-    recordSale();
+    record_sale();
   });
 };
 
-var getCoffeeSales = /*#__PURE__*/function () {
+var get_coffee_sales = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
@@ -5175,7 +5176,7 @@ var getCoffeeSales = /*#__PURE__*/function () {
             return axios.get("/api/coffee-sales").then(function (_ref2) {
               var data = _ref2.data;
               data.sales.map(function (sale) {
-                insertNewSaleRow(sale);
+                insert_new_sale_row(sale);
               });
             })["catch"](function (err) {
               console.log(err);
@@ -5189,12 +5190,12 @@ var getCoffeeSales = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function getCoffeeSales() {
+  return function get_coffee_sales() {
     return _ref.apply(this, arguments);
   };
 }();
 
-var recordSale = /*#__PURE__*/function () {
+var record_sale = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
     var quantity, unit_cost, selling_price, product;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -5205,19 +5206,18 @@ var recordSale = /*#__PURE__*/function () {
             unit_cost = document.querySelector("#unit-cost").value;
             selling_price = document.querySelector("#selling-price-value").value;
             product = document.querySelector('#product');
-            product = product ? product.options[product.selectedIndex].value : null;
-            console.log('product', product); //alert and ignore if any are missing
+            product = product ? product.options[product.selectedIndex].value : null; //alert and ignore if any are missing
 
             if (!(!quantity || !unit_cost || !selling_price)) {
-              _context2.next = 9;
+              _context2.next = 8;
               break;
             }
 
             alert("Please check fields and try again...");
             return _context2.abrupt("return", false);
 
-          case 9:
-            _context2.next = 11;
+          case 8:
+            _context2.next = 10;
             return axios.post("/api/coffee-sales/store", {
               quantity: parseInt(quantity),
               unit_cost: parseFloat(unit_cost),
@@ -5227,7 +5227,8 @@ var recordSale = /*#__PURE__*/function () {
               var data = _ref4.data;
 
               if (data.status == 200) {
-                insertNewSaleRow(data.sale);
+                //add table row with sale data;
+                insert_new_sale_row(data.sale);
               }
             })["catch"](function (_ref5) {
               var response = _ref5.response;
@@ -5238,7 +5239,7 @@ var recordSale = /*#__PURE__*/function () {
               alert(errorsText);
             });
 
-          case 11:
+          case 10:
           case "end":
             return _context2.stop();
         }
@@ -5246,12 +5247,12 @@ var recordSale = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function recordSale() {
+  return function record_sale() {
     return _ref3.apply(this, arguments);
   };
 }();
 
-var insertNewSaleRow = /*#__PURE__*/function () {
+var insert_new_sale_row = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(sale) {
     var newRowData, tbody;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -5269,19 +5270,30 @@ var insertNewSaleRow = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function insertNewSaleRow(_x) {
+  return function insert_new_sale_row(_x) {
     return _ref6.apply(this, arguments);
   };
 }();
 
-var selling_price_calculator = function selling_price_calculator() {
+var update_selling_price = function update_selling_price() {
   //init variables using input fields or defaults;
-  var profit_margin;
   var shipping_cost = 10;
   var product = document.querySelector('#product');
   product = product ? product.options[product.selectedIndex].value : null;
   var quantity = parseInt(document.querySelector('#quantity').value);
-  var unit_cost = parseFloat(document.querySelector('#unit-cost').value);
+  var unit_cost = parseFloat(document.querySelector('#unit-cost').value); //calc selling_price;
+
+  var selling_price = calculate_selling_price(quantity, unit_cost, product, shipping_cost); //ignore if no selling_price calculated;
+
+  if (!selling_price) return false; //update dom with selling price;
+
+  document.querySelector('#selling-price').innerHTML = "\xA3".concat(selling_price);
+  document.querySelector('#selling-price-value').value = selling_price;
+};
+
+var calculate_selling_price = function calculate_selling_price(quantity, unit_cost, product, shipping_cost) {
+  var profit_margin; //calc cost;
+
   var cost = parseInt(quantity) * parseFloat(unit_cost); //set profit_margin based on product
 
   switch (product) {
@@ -5295,15 +5307,17 @@ var selling_price_calculator = function selling_price_calculator() {
 
     default:
       profit_margin = 0.25;
-  } //calc selling_price;
+  } //calc selling price;
 
 
-  var selling_price = cost / (1 - profit_margin) + shipping_cost; //ignore selling_price if not a number;
+  var selling_price = cost / (1 - profit_margin) + shipping_cost; //ignore if not a number;
 
-  if (isNaN(selling_price)) return false; //update dom with selling price;
+  if (isNaN(selling_price)) return false;
+  return selling_price.toFixed(2);
+};
 
-  document.querySelector('#selling-price').innerHTML = "\xA3".concat(selling_price.toFixed(2));
-  document.querySelector('#selling-price-value').value = selling_price.toFixed(2);
+module.exports = {
+  calculate_selling_price: calculate_selling_price
 };
 
 /***/ }),
@@ -56189,6 +56203,21 @@ try {
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/harmony module decorator */
+/******/ 	(() => {
+/******/ 		__webpack_require__.hmd = (module) => {
+/******/ 			module = Object.create(module);
+/******/ 			if (!module.children) module.children = [];
+/******/ 			Object.defineProperty(module, 'exports', {
+/******/ 				enumerable: true,
+/******/ 				set: () => {
+/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
+/******/ 				}
+/******/ 			});
+/******/ 			return module;
+/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
