@@ -8,7 +8,11 @@
 - php artisan serve
 
 ## Tests
-- frontend: npm run test
+
+Front end:
+- npm run test
+
+Backend: 
 - backend: php artisan test
 
 --------------------------------------------------
